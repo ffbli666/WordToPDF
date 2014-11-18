@@ -21,7 +21,9 @@ namespace WordToPDF
             {
                 Console.WriteLine("Version: WordToPDF v0.1");
                 Console.WriteLine("Author: ZongYing Lyu");
-                Console.WriteLine("Usage: ConvertPDF <input file> <output file>");
+                Console.WriteLine("Usage: WordToPDF <input file> <output file>");
+                Console.WriteLine("Example:");
+                Console.WriteLine("    WordToPDF test.doc test.pdf");
                 return 1;
             }
 
@@ -45,8 +47,7 @@ namespace WordToPDF
                 return 1;
 
             }
-            //Console.WriteLine("input:{0}", input);
-            //Console.WriteLine("output:{0}", output);
+
             if (!File.Exists(input))
             {
                 Console.WriteLine("Input file does not exist: {0}", input);
