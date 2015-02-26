@@ -90,8 +90,10 @@ namespace WordToPDF
             {
                 Console.WriteLine("Can not open input file: {0}", input);
                 Console.WriteLine(e);
+                appWord.Quit();
                 return 1;
             }
+            appWord.Quit();
             return 0;
         }
 
@@ -113,8 +115,10 @@ namespace WordToPDF
             {
                 Console.WriteLine("Can not open input file: {0}", input);
                 Console.WriteLine(e);
+                appPPT.Quit();
                 return 1;
             }
+            appPPT.Quit();
             return 0;
         }
     }
