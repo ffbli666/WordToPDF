@@ -3,9 +3,11 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Microsoft.Office.Interop.Word;
 using Microsoft.Office.Interop.PowerPoint;
+
 
 namespace WordToPDF
 {
@@ -85,15 +87,19 @@ namespace WordToPDF
                 Microsoft.Office.Interop.Word.Document wordDocument = appWord.Documents.Open(input);
                 wordDocument.ExportAsFixedFormat(output, WdExportFormat.wdExportFormatPDF);
                 wordDocument.Close();
+                //NAR(wordDocument);
             }
             catch (Exception e)
             {
                 Console.WriteLine("Can not open input file: {0}", input);
                 Console.WriteLine(e);
-                appWord.Quit();
                 return 1;
             }
-            appWord.Quit();
+            finally
+            {
+                appWord.Quit();
+                //NAR(appWord);
+            }            
             return 0;
         }
 
@@ -110,16 +116,33 @@ namespace WordToPDF
                                                                                                     );
                 pptPst.ExportAsFixedFormat(output, Microsoft.Office.Interop.PowerPoint.PpFixedFormatType.ppFixedFormatTypePDF);
                 pptPst.Close();
+                //NAR(pptPst);
             }
             catch (Exception e)
             {
                 Console.WriteLine("Can not open input file: {0}", input);
                 Console.WriteLine(e);
-                appPPT.Quit();
                 return 1;
             }
-            appPPT.Quit();
+            finally
+            {
+                appPPT.Quit();
+                //NAR(appPPT);
+            }
             return 0;
+        }
+
+        private static void NAR(object o)
+        {
+            try
+            {
+                while (System.Runtime.InteropServices.Marshal.ReleaseComObject(o) > 0) ;
+            }
+            catch { }
+            finally
+            {
+                o = null;
+            }
         }
     }
 }
